@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+
+  <link rel="stylesheet" href="/styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <form action="/getWeather" method="post" class="search-box">
+          <input type="text" name="city" id="city" class="input-box" placeholder="Enter Location" required>
+          <button type="submit" class="ri-search-2-line" title="Search"></button>
+        </form>
+      </div>
+    </div>
+
+    <% if (weatherData && !weatherData.error) { %>
+    <div class="weather-body">
+      <p class="city-name">
+        <%= weatherData.name %>
+      </p>
+      <img src="images/<%= weatherData.weather[0].main %>.png" alt="Weather Image" class="weather-img" id="weather-image">
+      <div class="weather-box">
+        <p class="temperature">
+          <%= weatherData.main.temp %><sup>°C</sup>
+        </p>
+        <p class="description">
+          <%= weatherData.weather[0].description %>
+        </p>
+      </div>
+      <div class="weather-details">
+        <div class="humidity">
+          <i class="ri-water-percent-line"></i>
+          <div class="text">
+            <span id="humidity">
+              <%= weatherData.main.humidity %><span>%</span>
+            </span>
+            <p>Humidity</p>
+          </div>
+        </div>
+        <div class="wind">
+          <i class="ri-windy-line"></i>
+          <div class="text">
+            <span id="wind-speed">
+              <%= weatherData.wind.speed %> <span>KMPH</span>
+            </span>
+            <p>Wind Speed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="weather-body">
+
+      <img src="images/404.png" alt="Weather Image" class="weather-img" id="weather-image">
+      <div class="weather-box">
+        <p class="temperature">
+          -
+        </p>
+        <p class="description">
+          City Not Found
+        </p>
+      </div>
+      <div class="weather-details">
+        <div class="humidity">
+          <i class="ri-water-percent-line"></i>
+          <div class="text">
+            <span id="humidity">
+              
+            </span>
+            <p>Humidity</p>
+          </div>
+        </div>
+        <div class="wind">
+          <i class="ri-windy-line"></i>
+          <div class="text">
+            <span id="wind-speed">
+              -
+            </span>
+            <p>Wind Speed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <script src="/scripts/script.js"></script>
+</body>
+
+</html>
